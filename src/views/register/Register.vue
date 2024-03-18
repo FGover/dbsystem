@@ -1,0 +1,151 @@
+<template>
+  <div class="register">
+    <div class="info">
+      <h3>管理系统</h3>
+      <el-form :model="userForm" :rules="rules" ref="userForm" label-width="100px" class="demo-userForm">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="userForm.username" style="width: 80%" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="userForm.password" show-password style="width: 80%" clearable></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-radio v-model="radio" class="radio" label="1">员工</el-radio>
+          <el-radio v-model="radio" class="radio" label="2">管理员</el-radio>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary" class="btn" @click="register">注册</el-button>
+      <div class="txt" @click="toLogin">已有账号？前往登录</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Register',
+  data() {
+    return {
+      userForm: {
+        username: '',
+        password: '',
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 5, max: 9, message: '长度在 5 到 9 个字符', trigger: 'blur' },
+        ],
+      },
+      radio: '1',
+    }
+  },
+  methods: {
+    register() {
+      if (this.radio == 1) {
+        this.$refs.userForm.validate(async (valid) => {
+          if (valid) {
+            const { data: res } = await this.axios.post('user/register', {
+              params: {
+                username: this.userForm.username,
+                password: this.userForm.password,
+              },
+            })
+            if (res.status == 200) {
+              this.$router.push('/login')
+              this.$message.success(res.message)
+            } else if (res.status == 202) {
+              this.$message.error(res.message)
+            } else {
+              this.$message.error(res.message)
+            }
+          }
+        })
+      } else {
+        this.$refs.userForm.validate(async (valid) => {
+          if (valid) {
+            const { data: res } = await this.axios.post('admin/register', {
+              params: {
+                adminname: this.userForm.username,
+                adminpassword: this.userForm.password,
+              },
+            })
+            if (res.status == 200) {
+              this.$router.push('/login')
+              this.$message.success(res.message)
+            } else if (res.status == 202) {
+              this.$message.error(res.message)
+            } else {
+              this.$message.error(res.message)
+            }
+          }
+        })
+      }
+    },
+    toLogin() {
+      this.$router.push('/login')
+    },
+  },
+}
+</script>
+
+<style lang="less" scoped>
+.register {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #e6a49d, #fff);
+  .info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 350px;
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 1px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+
+    h3 {
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+      user-select: none;
+    }
+    .demo-userForm {
+      margin: 30px auto;
+    }
+    .radio {
+      text-align: center;
+      margin-left: 35px;
+    }
+    /deep/ .el-radio__input.is-checked + .el-radio__label {
+      color: #ebb5af !important;
+    }
+    /deep/ .el-radio__input.is-checked .el-radio__inner {
+      background: #ebb5af !important;
+      border-color: #ebb5af !important;
+    }
+    .btn {
+      position: absolute;
+      top: 80%;
+      left: 48%;
+      transform: translate(-50%, -50%);
+      background-color: #c08f8a;
+      border: #c08f8a;
+    }
+    .txt {
+      font-size: 10px;
+      position: absolute;
+      top: 80%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}
+</style>

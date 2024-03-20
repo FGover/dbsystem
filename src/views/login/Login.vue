@@ -46,6 +46,7 @@ export default {
       }
     }
     return {
+      checked: true,
       captchaUrl: '',
       radio: '1',
       ruleForm: {
@@ -187,6 +188,16 @@ export default {
       background: #ebb5af !important;
       border-color: #ebb5af !important;
     }
+
+    /deep/ .el-input__inner {
+      border-radius: 8px;
+    }
+    /deep/ .el-input__inner:focus {
+      border-color: #ebb5af !important;
+    }
+    .radio {
+      color: #fff;
+    }
     .demo-ruleForm {
       margin: 30px auto;
     }
@@ -194,20 +205,23 @@ export default {
     .btn {
       position: absolute;
       top: 88%;
-      left: 48%;
+      left: 44%;
+      width: 80px;
+      text-align: center;
       transform: translate(-50%, -50%);
       background-color: #c08f8a;
       border: #c08f8a;
     }
 
     .txt {
-      font-size: 10px;
+      font-size: 12px;
       position: absolute;
       top: 88%;
       left: 70%;
       transform: translate(-50%, -50%);
       cursor: pointer;
       user-select: none;
+      color: #fff;
     }
     .Captcha {
       display: flex;

@@ -133,6 +133,10 @@ export default {
         border-radius: 50%;
       }
     }
+
+    .radio {
+      color: #fff;
+    }
     .demo-userForm {
       margin: 30px auto;
     }
@@ -144,22 +148,30 @@ export default {
       background: #ebb5af !important;
       border-color: #ebb5af !important;
     }
+    /deep/ .el-input__inner {
+      border-radius: 8px;
+    }
+    /deep/ .el-input__inner:focus {
+      border-color: #ebb5af !important;
+    }
     .btn {
       position: absolute;
       top: 83%;
-      left: 48%;
+      left: 44%;
+      width: 80px;
       transform: translate(-50%, -50%);
       background-color: #c08f8a;
       border: #c08f8a;
     }
     .txt {
-      font-size: 10px;
+      font-size: 12px;
       position: absolute;
       top: 83%;
       left: 70%;
       transform: translate(-50%, -50%);
       cursor: pointer;
       user-select: none;
+      color: #fff;
     }
   }
 }

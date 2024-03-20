@@ -131,7 +131,9 @@ exports.getCaptcha = (req, res) => {
     ignoreChars: '0o1liO',
     noise: 2,
     color: true,
-    background: '#f7f7f7'
+    background: '#f7f7f7',
+    width: 107,
+    height: 40
   })
   res.send({
     captcha: captcha.text,

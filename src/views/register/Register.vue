@@ -1,13 +1,16 @@
 <template>
   <div class="register">
     <div class="info">
-      <h3>管理系统</h3>
-      <el-form :model="userForm" :rules="rules" ref="userForm" label-width="100px" class="demo-userForm">
+      <h3>Sign up</h3>
+      <div class="img">
+        <img src="@/assets/可莉.png" alt="">
+      </div>
+      <el-form :model="userForm" :rules="rules" ref="userForm" label-width="70px" class="demo-userForm">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="userForm.username" style="width: 80%" clearable></el-input>
+          <el-input v-model="userForm.username" style="width: 100%" clearable></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="userForm.password" show-password style="width: 80%" clearable></el-input>
+          <el-input type="password" v-model="userForm.password" show-password style="width: 100%" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <el-radio v-model="radio" class="radio" label="1">员工</el-radio>
@@ -103,25 +106,37 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 350px;
+    width: 400px;
+    height: 450px;
     backdrop-filter: blur(10px);
     box-shadow: 2px 1px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h3 {
       margin-top: 20px;
       text-align: center;
+      font-size: 26px;
       color: #fff;
       user-select: none;
+    }
+    .img {
+      margin-top: 20px;
+      width: 70px;
+      height: 70px;
+      text-align: center;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
     }
     .demo-userForm {
       margin: 30px auto;
     }
-    .radio {
-      text-align: center;
-      margin-left: 35px;
-    }
+
     /deep/ .el-radio__input.is-checked + .el-radio__label {
       color: #ebb5af !important;
     }
@@ -131,7 +146,7 @@ export default {
     }
     .btn {
       position: absolute;
-      top: 80%;
+      top: 83%;
       left: 48%;
       transform: translate(-50%, -50%);
       background-color: #c08f8a;
@@ -140,7 +155,7 @@ export default {
     .txt {
       font-size: 10px;
       position: absolute;
-      top: 80%;
+      top: 83%;
       left: 70%;
       transform: translate(-50%, -50%);
       cursor: pointer;

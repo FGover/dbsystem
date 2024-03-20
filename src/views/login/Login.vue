@@ -1,7 +1,10 @@
 <template>
   <div class="login">
     <div class="info">
-      <h3>员工管理系统</h3>
+      <h3>Sign in</h3>
+      <div class="img">
+        <img src="@/assets/胡桃.jpg" alt="">
+      </div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="ruleForm.username" style="width: 80%" clearable></el-input>
@@ -32,7 +35,7 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
   data() {
-    var validateCaptcha = (rule, value, callback) => {
+    const validateCaptcha = (rule, value, callback) => {
       let captcha = localStorage.getItem('captcha')
       if (value === '') {
         callback(new Error('请输入验证码'))
@@ -149,22 +152,34 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
     backdrop-filter: blur(10px);
     box-shadow: 2px 1px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h3 {
       margin-top: 20px;
       text-align: center;
+      font-size: 26px;
       color: #fff;
       user-select: none;
     }
-    .radio {
+    .img {
+      margin-top: 20px;
+      width: 70px;
+      height: 70px;
       text-align: center;
-      margin-left: 35px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
     }
+
     /deep/ .el-radio__input.is-checked + .el-radio__label {
       color: #ebb5af !important;
     }
@@ -178,7 +193,7 @@ export default {
 
     .btn {
       position: absolute;
-      top: 85%;
+      top: 88%;
       left: 48%;
       transform: translate(-50%, -50%);
       background-color: #c08f8a;
@@ -188,7 +203,7 @@ export default {
     .txt {
       font-size: 10px;
       position: absolute;
-      top: 85%;
+      top: 88%;
       left: 70%;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -196,10 +211,12 @@ export default {
     }
     .Captcha {
       display: flex;
-      align-items: center;
       .captcha {
+        width: 100px;
+        height: 40px;
         margin-left: 10px;
         height: 45px;
+        border-radius: 5px;
       }
     }
   }

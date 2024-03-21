@@ -181,18 +181,18 @@ export default {
       }
     }
 
-    /deep/ .el-radio__input.is-checked + .el-radio__label {
+    ::v-deep(.el-radio__input.is-checked + .el-radio__label) {
       color: #ebb5af !important;
     }
-    /deep/ .el-radio__input.is-checked .el-radio__inner {
+    ::v-deep(.el-radio__input.is-checked .el-radio__inner) {
       background: #ebb5af !important;
       border-color: #ebb5af !important;
     }
 
-    /deep/ .el-input__inner {
+    ::v-deep(.el-input__inner) {
       border-radius: 8px;
     }
-    /deep/ .el-input__inner:focus {
+    ::v-deep(.el-input__inner:focus) {
       border-color: #ebb5af !important;
     }
     .radio {

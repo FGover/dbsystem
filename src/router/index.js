@@ -93,7 +93,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to) => {
-  document.title = `${to.meta.title || ''} - 员工管理系统`
+  document.title = `${to.meta.title || ''} - ${process.env.VUE_APP_TITLE}`
 })
 
 // 跳转相同路由

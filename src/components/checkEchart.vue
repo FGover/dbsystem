@@ -25,6 +25,10 @@ export default {
     this.myChart = echarts.init(document.getElementById('checkechart'))
     this.updateChart()
   },
+  // 销毁
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateChart)
+  },
   methods: {
     updateChart() {
       const checkdata = this.$props.checkData
@@ -38,7 +42,7 @@ export default {
           count2++
         }
       }
-      arr.push({ value: count1, name: '打卡' }, { value: count2, name: '缺勤' })
+      arr.push({ value: count1, name: '打卡' }, { value: count2, name: '未打卡' })
 
       const option = {
         title: {
@@ -67,12 +71,12 @@ export default {
               color: (list) => {
                 var colorList = [
                   {
-                    colorStart: '#abdcff',
-                    colorEnd: '#0396ff',
-                  },
-                  {
                     colorStart: '#90f7ec',
                     colorEnd: '#32ccbc',
+                  },
+                  {
+                    colorStart: '#abdcff',
+                    colorEnd: '#0396ff',
                   },
                 ]
                 return new echarts.graphic.LinearGradient(1, 0, 0, 0, [
@@ -108,4 +112,3 @@ export default {
   },
 }
 </script>
-

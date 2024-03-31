@@ -145,7 +145,7 @@ export default {
         // 早上 8点与9点之间
         const now = new Date()
         const startTime = new Date(this.year, this.month - 1, this.day, 8, 0, 0)
-        const endTime = new Date(this.year, this.month - 1, this.day, 9, 0, 0)
+        const endTime = new Date(this.year, this.month - 1, this.day, 10, 0, 0)
         if (now.getTime() >= startTime && now.getTime() < endTime) {
           const { data: res } = await this.axios.post('check', {
             params: {

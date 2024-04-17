@@ -47,6 +47,7 @@
         <div class="t">请假人：{{ username }}</div>
         <div class="t">请假时长：{{ txt.timeLong }}</div>
         <div class="t">请假原因：{{ txt.reason }}</div>
+        <div class="t">审批人：{{ txt.admin_name }}</div>
       </div>
     </el-dialog>
   </div>
@@ -163,6 +164,7 @@ export default {
       this.dialogTableVisible = true
       this.txt.reason = data.reason
       this.txt.timeLong = data.timeLong
+      this.txt.admin_name = data.admin_name
       if (data.status === '审批通过' || data.status === '审批拒绝') {
         this.active = 3
       }

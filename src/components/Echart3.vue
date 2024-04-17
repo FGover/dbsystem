@@ -38,6 +38,7 @@ export default {
         }
       })
       let sum = cnt1 + cnt2 + cnt3 + cnt4 + cnt5 + cnt6
+      let arr = [cnt1, cnt2, cnt3, cnt4, cnt5, cnt6]
       // 保留两位小数
       cnt1 = (cnt1 / sum).toFixed(2)
       cnt2 = (cnt2 / sum).toFixed(2)
@@ -81,7 +82,7 @@ export default {
           },
           {
             show: true,
-            data: [sum, sum, sum, sum, sum, sum],
+            data: arr,
             inverse: true,
             // 不显示y轴线条
             axisLine: {

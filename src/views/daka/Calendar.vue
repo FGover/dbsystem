@@ -36,7 +36,7 @@ export default {
       let arr = []
       // 给arr数组增加对象 且对象属性名为day和isChecked
       for (let i = 0; i < this.num; i++) {
-        arr.push({ day: i + 1, isChecked: false, checked: false })
+        arr.push({ day: i + 1, isChecked: false, checked: false, checkout: false })
       }
       if (this.month === this.getCurrentMonth()) {
         let index = this.day - 1
@@ -52,16 +52,24 @@ export default {
       })
       const checkList = res
       let arr = []
+      let arr2 = []
       for (let i = 0; i < checkList.length; i++) {
         const dateStr = checkList[i].sign_in_time
+        const dateStr2 = checkList[i].sign_out_time
         const date = new Date(dateStr)
+        const date2 = new Date(dateStr2)
         arr.push({ day: date.getDate(), month: date.getMonth() + 1 })
+        arr2.push({ day: date2.getDate(), month: date2.getMonth() + 1 })
       }
       for (let i = 0; i < checkList.length; i++) {
         if (this.month === arr[i].month) {
           this.num[arr[i].day - 1].checked = true
         }
+        if (this.month === arr2[i].month) {
+          this.num[arr2[i].day - 1].checkout = true
+        }
       }
+      console.log(this.num)
     },
     getCurrentMonth() {
       let date = new Date()

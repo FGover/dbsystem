@@ -103,6 +103,8 @@ export default {
               this.setToken(res.token)
               localStorage.setItem('radio', this.radio)
               localStorage.setItem('breadName', '图形数据')
+              localStorage.setItem('admin_id', res.data[0].admin_id)
+              localStorage.setItem('adminname', res.data[0].adminname)
               this.$router.push('/Main')
               this.$store.commit('saveUser', this.ruleForm.username)
               this.$message.success(res.message)

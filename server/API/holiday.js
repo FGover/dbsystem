@@ -32,8 +32,8 @@ exports.getApprovalInfo = (req, res) => {
 
 // 不同意申请
 exports.disapproval = (req, res) => {
-  const sql = 'update holiday set status = ? where id = ?'
-  db.query(sql, ['审批拒绝', req.body.params.id], (err) => {
+  const sql = 'update holiday set status = ?, admin_id = ?, admin_name = ? where id = ?'
+  db.query(sql, ['审批拒绝', req.body.params.admin_id, req.body.params.admin_name, req.body.params.id], (err) => {
     if (err) return res.send('错误：' + err.message)
     res.send({
       status: 200,
@@ -44,8 +44,8 @@ exports.disapproval = (req, res) => {
 
 // 同意申请
 exports.approval = (req, res) => {
-  const sql = 'update holiday set status = ? where id = ?'
-  db.query(sql, ['审批通过', req.body.params.id], (err) => {
+  const sql = 'update holiday set status = ?, admin_id = ?, admin_name = ? where id = ?'
+  db.query(sql, ['审批通过', req.body.params.admin_id, req.body.params.admin_name, req.body.params.id], (err) => {
     if (err) return res.send('错误：' + err.message)
     res.send({
       status: 200,

@@ -3,14 +3,17 @@
     <div class="info">
       <h3>Sign up</h3>
       <div class="img">
-        <img src="@/assets/可莉.png" alt="">
+        <img src="@/assets/可莉.png" alt="" />
       </div>
-      <el-form :model="userForm" :rules="rules" ref="userForm" label-width="70px" class="demo-userForm">
+      <el-form :model="userForm" :rules="rules" ref="userForm" label-width="80px" class="demo-userForm">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="userForm.username" style="width: 100%" clearable></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="userForm.password" show-password style="width: 100%" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPass">
+          <el-input type="password" v-model="userForm.confirmPass" show-password style="width: 100%" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <el-radio v-model="radio" class="radio" label="1">员工</el-radio>
@@ -28,10 +31,20 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Register',
   data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.userForm.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       userForm: {
         username: '',
         password: '',
+        confirmPass: '',
       },
       rules: {
         username: [
@@ -40,7 +53,11 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 5, max: 9, message: '长度在 5 到 9 个字符', trigger: 'blur' },
+          { min: 4, max: 9, message: '长度在 4 到 9 个字符', trigger: 'blur' },
+        ],
+        confirmPass: [
+          { required: true, validator: validatePass, trigger: 'blur' },
+          { min: 4, max: 9, message: '长度在 4 到 9 个字符', trigger: 'blur' },
         ],
       },
       radio: '1',
@@ -107,7 +124,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 450px;
+    height: 500px;
     backdrop-filter: blur(10px);
     box-shadow: 2px 1px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -156,7 +173,7 @@ export default {
     }
     .btn {
       position: absolute;
-      top: 83%;
+      top: 85%;
       left: 44%;
       width: 80px;
       transform: translate(-50%, -50%);
@@ -166,7 +183,7 @@ export default {
     .txt {
       font-size: 12px;
       position: absolute;
-      top: 83%;
+      top: 85%;
       left: 70%;
       transform: translate(-50%, -50%);
       cursor: pointer;

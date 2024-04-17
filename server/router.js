@@ -66,6 +66,7 @@ router.get('/api/searchbyname', user.searchByName)
 
 // 打卡签到
 router.post('/api/check', check.check)
+router.post('/api/checkout', check.check_out)
 router.get('/api/checkid', check.check_id)
 router.get('/api/check_list', check.check_list)
 router.get('/api/check_record', check.check_record)

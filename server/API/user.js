@@ -34,6 +34,7 @@ exports.getUserInfo = (req, res) => {
 }
 
 // 修改个人信息
+
 exports.updateUser = (req, res) => {
   var sql = 'update user_info set username = ?, password = ?, gender = ?, phone = ?, email = ?, address = ? where username = ?'
   db.query(sql, [req.query.username, req.query.password, req.query.gender, req.query.phone, req.query.email, req.query.address, req.auth.username], (err) => {
@@ -64,6 +65,7 @@ exports.updateInfo = (req, res) => {
       message: '修改成功',
     })
   })
+
 }
 
 // 上传头像

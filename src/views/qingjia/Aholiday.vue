@@ -84,6 +84,8 @@ export default {
     async disapproval() {
       const { data: res } = await this.axios.post('disapproval', {
         params: {
+          admin_id: localStorage.getItem('admin_id'),
+          admin_name: localStorage.getItem('adminname'),
           id: this.txt.id,
         },
       })
@@ -96,6 +98,8 @@ export default {
     async approval() {
       const { data: res } = await this.axios.post('approval', {
         params: {
+          admin_id: localStorage.getItem('admin_id'),
+          admin_name: localStorage.getItem('adminname'),
           id: this.txt.id,
         },
       })

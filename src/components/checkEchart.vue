@@ -36,7 +36,7 @@ export default {
       let count1 = 0
       let count2 = 0
       for (let i = 0; i < checkdata.length; i++) {
-        if (checkdata[i].checked) {
+        if (checkdata[i].checkout) {
           count1++
         } else {
           count2++
@@ -46,7 +46,7 @@ export default {
 
       const option = {
         title: {
-          text: '当月考勤打卡分布图',
+          text: '当月考勤打卡分布图（签到签退才算打卡成功）',
           left: 'center',
           y: 25,
         },

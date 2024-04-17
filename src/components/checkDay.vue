@@ -23,7 +23,10 @@
         <div v-if="!item.checked" class="txt" style="color: red">未签</div>
       </div>
     </div>
-    <div class="btn" @click="check">签到</div>
+    <div class="footer">
+      <div class="btn" @click="check">签到</div>
+      <div class="btn" @click="checkout">签退</div>
+    </div>
   </div>
 </template>
 
@@ -57,7 +60,6 @@ export default {
     this.getFirstDayOfWeek(this.year, this.month)
     this.getAllCheck()
   },
-  mounted() {},
   methods: {
     // 获取一年中每个月的天数
     getMonthDays() {
@@ -66,7 +68,7 @@ export default {
       let arr = []
       // 给arr数组增加对象 且对象属性名为day和isChecked
       for (let i = 0; i < this.num; i++) {
-        arr.push({ day: i + 1, isChecked: false, checked: false })
+        arr.push({ day: i + 1, isChecked: false, checked: false, checkout: false })
       }
       if (this.month === this.getCurrentMonth()) {
         let index = this.day - 1
@@ -78,7 +80,7 @@ export default {
     getFirstDayOfWeek(year, month) {
       let date = new Date(year, month - 1, 1)
       this.firstDayWeek = date.getDay()
-      console.log(this.firstDayWeek)
+      // console.log(this.firstDayWeek)
       if (this.firstDayWeek === 1) {
         this.one = true
         this.two = this.three = this.four = this.five = this.six = this.seven = false
@@ -142,10 +144,10 @@ export default {
       if (res.length > 0) {
         this.$message.warning('今日您已经签到过了')
       } else {
-        // 早上 8点与9点之间
+        // 早上 8点与10点之间
         const now = new Date()
         const startTime = new Date(this.year, this.month - 1, this.day, 8, 0, 0)
-        const endTime = new Date(this.year, this.month - 1, this.day, 10, 0, 0)
+        const endTime = new Date(this.year, this.month - 1, this.day, 15, 0, 0)
         if (now.getTime() >= startTime && now.getTime() < endTime) {
           const { data: res } = await this.axios.post('check', {
             params: {
@@ -162,6 +164,39 @@ export default {
         }
       }
     },
+    // 签退
+    async checkout() {
+      const { data: res } = await this.axios.get('check_record', {
+        params: {
+          user_id: localStorage.getItem('user_id'),
+        },
+      })
+      if (res.length === 0) {
+        return this.$message.error('今日您还未签到, 无法进行签退')
+      }
+      if (res[0].sign_out_time) {
+        this.$message.warning('今日您已经签退过了')
+      } else {
+        // 下午 5点与7点之间
+        const now = new Date()
+        const startTime = new Date(this.year, this.month - 1, this.day, 13, 0, 0)
+        const endTime = new Date(this.year, this.month - 1, this.day, 19, 0, 0)
+        if (now.getTime() >= startTime && now.getTime() < endTime) {
+          const { data: res } = await this.axios.post('checkout', {
+            params: {
+              user_id: localStorage.getItem('user_id'),
+            },
+          })
+          if (res.status === 200) {
+            this.$message.success(res.message)
+            this.getMonthDays()
+            this.getAllCheck()
+          }
+        } else {
+          this.$message.error('当前不在签退时间范围内')
+        }
+      }
+    },
     // 获取用户的所有签到记录
     async getAllCheck() {
       const { data: res } = await this.axios.get('check_list', {
@@ -171,14 +206,21 @@ export default {
       })
       this.checkList = res
       let arr = []
+      let arr2 = []
       for (let i = 0; i < this.checkList.length; i++) {
         const dateStr = this.checkList[i].sign_in_time
+        const dateStr2 = this.checkList[i].sign_out_time
         const date = new Date(dateStr)
+        const date2 = new Date(dateStr2)
         arr.push({ day: date.getDate(), month: date.getMonth() + 1 })
+        arr2.push({ day: date2.getDate(), month: date2.getMonth() + 1 })
       }
       for (let i = 0; i < this.checkList.length; i++) {
         if (this.month === arr[i].month) {
           this.num[arr[i].day - 1].checked = true
+        }
+        if (this.month === arr2[i].month) {
+          this.num[arr2[i].day - 1].checkout = true
         }
       }
       console.log(this.num)
@@ -272,17 +314,40 @@ export default {
   color: #333;
   font-size: 13px;
 }
-.btn {
-  width: 90px;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  font-size: 800;
-  cursor: pointer;
-  user-select: none;
-  margin: auto;
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn {
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 800;
+    cursor: pointer;
+    user-select: none;
+  }
+  // btn第一个
+  .btn:first-child {
+    margin-right: 20px;
+  }
+  // btn第二个
+  .btn:last-child {
+    margin-left: 20px;
+  }
+}
+
+.one,
+.two,
+.three,
+.four,
+.five,
+.six,
+.seven {
+  display: none;
 }
 
 .active {
